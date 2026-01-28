@@ -1,0 +1,70 @@
+name: Auto Release
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'ideas/*.json'
+
+permissions:
+  contents: write
+
+jobs:
+  check-release:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for tag detection
+
+      - name: Count ideas since last release
+        id: count
+        run: |
+          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          
+          if [ -z "$LAST_TAG" ]; then
+            # No previous tags, count all ideas
+            COUNT=$(ls ideas/*.json 2>/dev/null | wc -l)
+            echo "First release - found $COUNT ideas"
+          else
+            # Count new JSON files since last tag
+            COUNT=$(git diff $LAST_TAG --name-only --diff-filter=A ideas/*.json 2>/dev/null | wc -l)
+            echo "Found $COUNT new ideas since $LAST_TAG"
+          fi
+          
+          echo "count=$COUNT" >> $GITHUB_OUTPUT
+          echo "last_tag=$LAST_TAG" >> $GITHUB_OUTPUT
+
+      - name: Generate release notes
+        if: steps.count.outputs.count >= 10
+        id: notes
+        run: |
+          LAST_TAG="${{ steps.count.outputs.last_tag }}"
+          
+          echo "## 🎉 New Ideas in This Release" > release_notes.md
+          echo "" >> release_notes.md
+          echo "This release adds **${{ steps.count.outputs.count }}** new ideas to the registry." >> release_notes.md
+          echo "" >> release_notes.md
+          
+          if [ -n "$LAST_TAG" ]; then
+            echo "**New ideas**:" >> release_notes.md
+            git log $LAST_TAG..HEAD --pretty=format:"- %s" --grep="feat: add" ideas/*.json >> release_notes.md
+            echo "" >> release_notes.md
+          fi
+          
+          echo "" >> release_notes.md
+          echo "**[View full catalog →](https://tryboy869.github.io/ideas/)**" >> release_notes.md
+
+      - name: Create release
+        if: steps.count.outputs.count >= 10
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v0.${{ github.run_number }}
+          release_name: Release v0.${{ github.run_number }} - ${{ steps.count.outputs.count }} new ideas
+          body_path: release_notes.md
+          draft: false
+          prerelease: false
