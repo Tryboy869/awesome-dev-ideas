@@ -1,0 +1,7 @@
+<svg width="140" height="28" viewBox="0 0 140 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="140" height="28" rx="14" fill="#111111" stroke="#8B5CF6" stroke-width="1"/>
+    <circle cx="14" cy="14" r="4" fill="#8B5CF6">
+        <animate attributeName="opacity" values="1;0.4;1" dur="2s" repeatCount="indefinite" />
+    </circle>
+    <text x="26" y="18" fill="white" style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:11px;">IDEA INSIDE</text>
+</svg>
