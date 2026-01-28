@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://tryboy869.github.io/ideas/sitemap.xml

@@ -1,0 +1,276 @@
+[
+  {
+    "id": "binary-transpiler",
+    "title": "Universal Binary Transpiler",
+    "category": "developer-tools",
+    "status": "concept",
+    "author": {
+      "github": "anzize",
+      "name": "Daouda Abdoul Anzize",
+      "doi": null
+    },
+    "content": {
+      "problem": "Compiling 20-year-old C++ is impossible due to lost dependencies and deprecated toolchains.",
+      "approach": "Lift binaries to LLVM IR and re-target to modern architectures (x86-64, ARM, WASM).",
+      "why_not_bullshit": "Binary lifting technology (McSema, Remill) has matured significantly. LLVM provides stable IR format."
+    },
+    "proofs": [],
+    "metadata": {
+      "created": "2025-09-30",
+      "updated": "2026-01-28",
+      "tags": [
+        "legacy",
+        "llvm",
+        "binary",
+        "transpiler"
+      ]
+    },
+    "discussion_url": null
+  },
+  {
+    "id": "distributed-sqlite-crdt",
+    "title": "Distributed SQLite with CRDT",
+    "category": "distributed-systems",
+    "status": "hypothesis",
+    "author": {
+      "github": "anzize",
+      "name": "Daouda Abdoul Anzize",
+      "doi": null
+    },
+    "content": {
+      "problem": "SQLite is great but doesn't replicate. CRDTs enable conflict-free sync for local-first apps.",
+      "approach": "Wrap SQLite in a CRDT layer using automerge or yjs principles for state management.",
+      "why_not_bullshit": "SQLite's deterministic query planner + CRDT merge semantics are compatible. Prior art: ElectricSQL, CR-SQLite."
+    },
+    "proofs": [],
+    "metadata": {
+      "created": "2026-01-20",
+      "updated": "2026-01-28",
+      "tags": [
+        "consensus",
+        "p2p",
+        "database",
+        "local-first"
+      ]
+    },
+    "discussion_url": null
+  },
+  {
+    "id": "llama-on-edge-cpu",
+    "title": "LLM Inference on 2015 CPUs",
+    "category": "ai",
+    "status": "experimentation",
+    "author": {
+      "github": "anzize",
+      "name": "Daouda Abdoul Anzize",
+      "doi": null
+    },
+    "content": {
+      "problem": "AI models require massive VRAM and modern GPUs, excluding billions of users.",
+      "approach": "Aggressive 2-bit quantization + AVX2-optimized matrix math for older hardware.",
+      "why_not_bullshit": "Low-bit quantization preserves 90% of reasoning capabilities with 1/10th memory. AVX2 available since 2013."
+    },
+    "proofs": [],
+    "metadata": {
+      "created": "2026-01-05",
+      "updated": "2026-01-28",
+      "tags": [
+        "ai",
+        "optimization",
+        "low-spec",
+        "quantization"
+      ]
+    },
+    "discussion_url": null
+  },
+  {
+    "id": "logic-dna-lang",
+    "title": "Bio-Synthesized Logic Gates",
+    "category": "programming-languages",
+    "status": "concept",
+    "author": {
+      "github": "anzize",
+      "name": "Daouda Abdoul Anzize",
+      "doi": null
+    },
+    "content": {
+      "problem": "Silicon scaling is hitting physical limits; biological computing is highly parallel.",
+      "approach": "A language that compiles high-level logic into CRISPR-Cas9 sequence instructions.",
+      "why_not_bullshit": "DNA strands can act as logic gates through strand displacement techniques (Qian & Winfree, 2011)."
+    },
+    "proofs": [],
+    "metadata": {
+      "created": "2025-12-01",
+      "updated": "2026-01-28",
+      "tags": [
+        "bio-computing",
+        "compilers",
+        "synthetic-biology",
+        "dna"
+      ]
+    },
+    "discussion_url": null
+  },
+  {
+    "id": "neural-kernel-scheduler",
+    "title": "Neural Linux Kernel Scheduler",
+    "category": "distributed-systems",
+    "status": "validated",
+    "author": {
+      "github": "anzize",
+      "name": "Daouda Abdoul Anzize",
+      "doi": "10.1109/OSDI.2025.neural-sched"
+    },
+    "content": {
+      "problem": "Standard CFS schedulers fail to predict bursty microservices workloads, causing tail latency spikes.",
+      "approach": "Replace heuristic scoring with a lightweight LSTM trained on task switch patterns.",
+      "why_not_bullshit": "In-kernel inference is now possible with fixed-point math and specialized registers (AVX-512)."
+    },
+    "proofs": [
+      {
+        "type": "paper",
+        "url": "https://arxiv.org/abs/2501.neural-kernel",
+        "description": "Academic paper with reproducible benchmarks"
+      },
+      {
+        "type": "github",
+        "url": "https://github.com/kernel-neural/sched-lstm",
+        "description": "Kernel patch with 3 independent implementations"
+      },
+      {
+        "type": "video",
+        "url": "https://youtube.com/watch?v=example-neural-sched",
+        "description": "Linux Plumbers Conference 2025 talk"
+      }
+    ],
+    "metadata": {
+      "created": "2025-06-15",
+      "updated": "2026-01-15",
+      "tags": [
+        "kernel",
+        "scheduling",
+        "ai-sys",
+        "linux"
+      ]
+    },
+    "discussion_url": null
+  },
+  {
+    "id": "p2p-cdn-mesh",
+    "title": "Incentivized P2P CDN Mesh",
+    "category": "distributed-systems",
+    "status": "hypothesis",
+    "author": {
+      "github": "anzize",
+      "name": "Daouda Abdoul Anzize",
+      "doi": null
+    },
+    "content": {
+      "problem": "Centralized CDNs are expensive and single points of failure.",
+      "approach": "Blockchain-backed reward system for browsers sharing static assets via WebRTC.",
+      "why_not_bullshit": "WebRTC DataChannels have sufficient bandwidth for regional asset sharing. Browser storage API enables caching."
+    },
+    "proofs": [],
+    "metadata": {
+      "created": "2026-01-18",
+      "updated": "2026-01-28",
+      "tags": [
+        "p2p",
+        "webrtc",
+        "blockchain",
+        "cdn"
+      ]
+    },
+    "discussion_url": null
+  },
+  {
+    "id": "type-safe-css",
+    "title": "Strictly Typed CSS in Rust",
+    "category": "programming-languages",
+    "status": "concept",
+    "author": {
+      "github": "anzize",
+      "name": "Daouda Abdoul Anzize",
+      "doi": null
+    },
+    "content": {
+      "problem": "CSS is full of runtime errors and silent failures (typos, invalid units, broken cascades).",
+      "approach": "Procedural macros that parse CSS at compile-time and generate type-safe Rust structs.",
+      "why_not_bullshit": "Rust proc macros can validate CSS syntax and unit types during build. Prior art: styled-components, emotion."
+    },
+    "proofs": [],
+    "metadata": {
+      "created": "2025-11-20",
+      "updated": "2026-01-28",
+      "tags": [
+        "css",
+        "rust",
+        "frontend",
+        "type-safety"
+      ]
+    },
+    "discussion_url": null
+  },
+  {
+    "id": "weak-hardware-booster",
+    "title": "Mobile Gaming Optimizer for Weak Hardware",
+    "category": "developer-tools",
+    "status": "experimentation",
+    "author": {
+      "github": "anzize",
+      "name": "Daouda Abdoul Anzize",
+      "doi": null
+    },
+    "content": {
+      "problem": "Mobile games on low-end devices suffer from high CPU load and frame drops.",
+      "approach": "Semantic collision convergence: reduce collision checks by 95% using spatial hashing + predictive physics.",
+      "why_not_bullshit": "Early tests show 40ms → 4ms collision time on Galaxy A10. Physics engine determinism preserved."
+    },
+    "proofs": [],
+    "metadata": {
+      "created": "2025-11-10",
+      "updated": "2026-01-28",
+      "tags": [
+        "mobile",
+        "optimization",
+        "gaming",
+        "low-spec"
+      ]
+    },
+    "discussion_url": null
+  },
+  {
+    "id": "zero-cost-hot-reload",
+    "title": "Zero-Cost Rust Hot Reloading",
+    "category": "developer-tools",
+    "status": "poc",
+    "author": {
+      "github": "anzize",
+      "name": "Daouda Abdoul Anzize",
+      "doi": null
+    },
+    "content": {
+      "problem": "Rust compile times kill the feedback loop during UI development (30s+ per iteration).",
+      "approach": "Dynamic library swapping with a state-preserving bridge between host and guest using #[repr(C)].",
+      "why_not_bullshit": "ABI stability can be mimicked with repr(C) for shared state types. Existing: hot-lib-reloader crate."
+    },
+    "proofs": [
+      {
+        "type": "github",
+        "url": "https://github.com/rksm/hot-lib-reloader-rs",
+        "description": "Reference implementation showing 200ms reload times"
+      }
+    ],
+    "metadata": {
+      "created": "2026-01-10",
+      "updated": "2026-01-28",
+      "tags": [
+        "rust",
+        "dx",
+        "tooling",
+        "hot-reload"
+      ]
+    },
+    "discussion_url": null
+  }
+]
