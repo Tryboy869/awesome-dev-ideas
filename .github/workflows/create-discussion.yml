@@ -1,0 +1,126 @@
+name: Create Discussion for New Ideas
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'ideas/**/*.json'
+
+jobs:
+  create-discussion:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
+      - name: Get changed JSON files
+        id: changed-files
+        run: |
+          CHANGED=$(git diff --name-only HEAD^ HEAD | grep '^ideas/.*\.json$' || true)
+          echo "changed=$CHANGED" >> $GITHUB_OUTPUT
+
+      - name: Create Discussions for new ideas
+        if: steps.changed-files.outputs.changed != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          for file in ${{ steps.changed-files.outputs.changed }}; do
+            if [ ! -f "$file" ]; then
+              echo "⏭️  Skipping deleted file: $file"
+              continue
+            fi
+
+            ID=$(jq -r '.id' "$file")
+            TITLE=$(jq -r '.title' "$file")
+            STATUS=$(jq -r '.status' "$file")
+            CATEGORY=$(jq -r '.category' "$file")
+            AUTHOR=$(jq -r '.author.github' "$file")
+            PROBLEM=$(jq -r '.content.problem' "$file")
+            APPROACH=$(jq -r '.content.approach' "$file")
+            WHY=$(jq -r '.content.why_not_bullshit' "$file")
+            TAGS=$(jq -r '.metadata.tags | join(", ")' "$file")
+            
+            # Build discussion body
+            BODY="## 💡 Idea: $TITLE
+
+**Status:** \`$STATUS\` | **Category:** \`$category\` | **Author:** @$AUTHOR
+
+---
+
+### 🎯 Problem
+$PROBLEM
+
+### 🔧 Approach
+$APPROACH
+
+### ✅ Why This Isn't Bullshit
+$WHY
+
+---
+
+**Tags:** $TAGS
+
+**JSON Source:** [\`$file\`](https://github.com/${{ github.repository }}/blob/main/$file)
+
+---
+
+💬 **Discuss this idea below!** Ask questions, suggest improvements, or share related work."
+
+            # Check if discussion already exists
+            EXISTING=$(gh api graphql -f query='
+              query($owner: String!, $repo: String!, $title: String!) {
+                repository(owner: $owner, name: $repo) {
+                  discussions(first: 1, query: $title) {
+                    nodes { id url }
+                  }
+                }
+              }' -f owner="${{ github.repository_owner }}" -f repo="${{ github.event.repository.name }}" -f title="$TITLE" --jq '.data.repository.discussions.nodes[0].url')
+
+            if [ -n "$EXISTING" ]; then
+              echo "ℹ️  Discussion already exists: $EXISTING"
+            else
+              echo "🆕 Creating discussion for: $TITLE"
+              
+              DISCUSSION_URL=$(gh api graphql -f query='
+                mutation($repositoryId: ID!, $categoryId: ID!, $title: String!, $body: String!) {
+                  createDiscussion(input: {
+                    repositoryId: $repositoryId
+                    categoryId: $categoryId
+                    title: $title
+                    body: $body
+                  }) {
+                    discussion { url }
+                  }
+                }' \
+                -f repositoryId="${{ github.event.repository.node_id }}" \
+                -f categoryId="DIC_kwDOExample" \
+                -f title="$TITLE" \
+                -f body="$BODY" \
+                --jq '.data.createDiscussion.discussion.url')
+
+              echo "✅ Discussion created: $DISCUSSION_URL"
+              
+              # Update JSON with discussion URL
+              jq --arg url "$DISCUSSION_URL" '.discussion_url = $url' "$file" > tmp.$$ && mv tmp.$$ "$file"
+            fi
+          done
+
+      - name: Commit discussion URLs
+        if: steps.changed-files.outputs.changed != ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add ideas/*.json
+          git diff --quiet && git diff --staged --quiet || git commit -m "chore: add discussion URLs to new ideas"
+          git push
