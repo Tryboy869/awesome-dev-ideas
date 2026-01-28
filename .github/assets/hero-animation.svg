@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" 
+     width="600" 
+     height="200" 
+     viewBox="0 0 600 200"
+     role="img"
+     aria-labelledby="hero-title hero-desc">
+  
+  <title id="hero-title">/dev/ideas Logo</title>
+  <desc id="hero-desc">Animated logo for /dev/ideas - open registry for technical ideas</desc>
+  
+  <style>
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; }
+    }
+    .logo-text { 
+      font-family: 'Monaco', 'Courier New', monospace; 
+      font-weight: 700;
+    }
+    .tagline-text { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
+    }
+  </style>
+  
+  <defs>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#667eea"/>
+      <stop offset="100%" stop-color="#764ba2"/>
+    </linearGradient>
+    
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Main logo text -->
+  <text x="300" y="80" 
+        text-anchor="middle" 
+        font-size="56" 
+        fill="url(#textGrad)"
+        class="logo-text"
+        filter="url(#glow)">
+    /dev/ideas
+    <animate attributeName="opacity" 
+             values="0.85;1;0.85" 
+             dur="4s" 
+             repeatCount="indefinite"/>
+  </text>
+  
+  <!-- Tagline -->
+  <text x="300" y="120" 
+        text-anchor="middle" 
+        font-size="16" 
+        fill="#64748b"
+        class="tagline-text">
+    The open registry for proof-of-concept technical ideas
+  </text>
+  
+  <!-- Floating particles (ideas symbolism) -->
+  <g opacity="0.3">
+    <!-- Particle 1 -->
+    <circle r="3" fill="#667eea">
+      <animateMotion dur="8s" repeatCount="indefinite" 
+                     path="M50,150 Q200,80 350,150 T550,150"/>
+      <animate attributeName="opacity" values="0.3;0.7;0.3" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Particle 2 -->
+    <circle r="2" fill="#764ba2">
+      <animateMotion dur="10s" repeatCount="indefinite" 
+                     path="M550,140 Q400,90 250,140 T50,140"/>
+      <animate attributeName="opacity" values="0.2;0.6;0.2" dur="5s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Particle 3 -->
+    <circle r="2.5" fill="#10b981">
+      <animateMotion dur="12s" repeatCount="indefinite" 
+                     path="M300,160 Q450,100 300,40 T300,160"/>
+      <animate attributeName="opacity" values="0.2;0.5;0.2" dur="6s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Underline decoration -->
+  <line x1="200" y1="140" x2="400" y2="140" 
+        stroke="url(#textGrad)" 
+        stroke-width="2" 
+        opacity="0.4"/>
+</svg>
