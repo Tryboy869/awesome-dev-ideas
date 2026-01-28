@@ -1,0 +1,13 @@
+<svg width="180" height="28" viewBox="0 0 180 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="180" height="28" rx="6" fill="#111111"/>
+    <path d="M0 6C0 2.68629 2.68629 0 6 0H100V28H0V6Z" fill="#1A1A1A"/>
+    <rect x="100" width="80" height="28" fill="url(#paint0_linear)"/>
+    <text x="10" y="18" fill="white" style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:12px;">/dev/ideas</text>
+    <text x="112" y="18" fill="white" style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:12px;">REGISTRY</text>
+    <defs>
+        <linearGradient id="paint0_linear" x1="100" y1="0" x2="180" y2="28" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#8B5CF6"/>
+            <stop offset="1" stop-color="#06B6D4"/>
+        </linearGradient>
+    </defs>
+</svg>
