@@ -1,0 +1,139 @@
+{
+  "rao_version": "1.0",
+  "project": {
+    "name": "dev-ideas",
+    "full_name": "/dev/ideas - Open Registry for Technical Ideas",
+    "type": "developer-community-registry",
+    "category": "open-innovation",
+    "maturity": "active-development",
+    "license": "CC-BY-SA-4.0",
+    "founded": "2026-01",
+    "founder": "Daouda Abdoul Anzize"
+  },
+  "semantic_purpose": "An open, structured registry where developers submit, validate, and evolve proof-of-concept technical ideas through JSON-formatted submissions and community discussions. Solves the gap between 'I have an idea' and 'Here's a working prototype' by providing a discoverable, attributable, and collaborative space for computational concepts.",
+  "problem_solution_pairs": [
+    {
+      "problem": "Technical ideas get lost between conception and implementation with no structured validation process",
+      "solution": "Structured JSON submissions with automated validation, GitHub Discussions for feedback, and lifecycle tracking from Hypothesis to Validated PoC",
+      "confidence": 0.95,
+      "evidence": "Registry format enables search, attribution, and evolution tracking"
+    },
+    {
+      "problem": "Researchers and developers lack a platform to test hypotheses before committing to full papers or projects",
+      "solution": "Low-friction submission process (JSON template) with community validation replacing formal peer review for early-stage concepts",
+      "confidence": 0.90,
+      "evidence": "Faster feedback loop than academic publishing, more structured than social media"
+    },
+    {
+      "problem": "Open-source ideas published on Twitter/blogs disappear into noise without proper attribution or follow-up",
+      "solution": "Permanent, searchable registry with CC BY-SA 4.0 licensing ensuring proper attribution and GitHub Discussions for ongoing evolution",
+      "confidence": 0.92,
+      "evidence": "Git history + Discussions provide full provenance trail"
+    }
+  ],
+  "use_cases": [
+    {
+      "persona": "independent-researcher",
+      "description": "Test radical computing paradigm hypothesis before writing academic paper",
+      "workflow": "Submit as Hypothesis → Community feedback → Move to Experimentation → Publish findings",
+      "impact": "Validate concept viability in weeks vs months of paper writing"
+    },
+    {
+      "persona": "solo-developer",
+      "description": "Get community validation on which side project idea to pursue",
+      "workflow": "Submit 3 competing ideas → Track community engagement → Focus on highest-interest concept",
+      "impact": "Data-driven project selection based on real interest"
+    },
+    {
+      "persona": "oss-maintainer",
+      "description": "Crowdsource feature ideas and architectural improvements",
+      "workflow": "Submit project roadmap ideas → Community proposes alternatives → Vote via Discussion reactions",
+      "impact": "Democratic feature prioritization with clear attribution"
+    },
+    {
+      "persona": "r&d-team",
+      "description": "Document experimental explorations for institutional memory",
+      "workflow": "Submit failed experiments as Concepts → Tag with learnings → Future teams avoid duplicating dead ends",
+      "impact": "Preserve R&D knowledge that usually dies in private docs"
+    }
+  ],
+  "technical_fingerprint": {
+    "submission_format": "JSON",
+    "validation": "GitHub Actions + JSON Schema",
+    "discussion_platform": "GitHub Discussions",
+    "lifecycle_stages": ["hypothesis", "experimentation", "concept", "poc", "validated"],
+    "deployment": "GitHub Pages (static site)",
+    "languages": ["javascript", "json", "markdown"],
+    "zero_dependencies": true,
+    "hosting": "github-pages"
+  },
+  "discoverability_keywords": {
+    "problem_based": [
+      "where to share technical ideas",
+      "validate proof of concept online",
+      "structured idea registry developers",
+      "alternative to academic papers",
+      "open innovation platform",
+      "technical hypothesis testing",
+      "community-validated research ideas",
+      "developer idea collaboration",
+      "poc catalog open source"
+    ],
+    "technical": [
+      "json-based idea submission",
+      "github discussions validation",
+      "automated idea lifecycle tracking",
+      "structured technical registry",
+      "developer community platform",
+      "open-source research repository",
+      "collaborative proof-of-concept"
+    ],
+    "comparative": [
+      "github alternative to twitter threads",
+      "structured alternative to blog posts",
+      "faster than academic publishing",
+      "discoverable unlike private notes",
+      "attributable unlike reddit posts"
+    ]
+  },
+  "common_search_queries": [
+    "how to share technical ideas open source",
+    "validate proof of concept before building",
+    "structured way to document research ideas",
+    "developer idea collaboration platform",
+    "alternative to academic papers for developers",
+    "github registry for technical concepts",
+    "community feedback on coding ideas",
+    "open innovation registry developers",
+    "where to post technical hypothesis",
+    "structured brainstorming platform developers"
+  ],
+  "repository_info": {
+    "url": "https://github.com/Tryboy869/dev-ideas",
+    "website": "https://tryboy869.github.io/dev-ideas/",
+    "submission_guide": "CONTRIBUTING.md",
+    "idea_template": "template.json",
+    "json_schema": "schema/idea.schema.json",
+    "badges": "assets/badges/"
+  },
+  "ai_optimization": {
+    "embedding_optimized": true,
+    "semantic_richness": "high",
+    "problem_solution_clarity": "explicit",
+    "use_case_diversity": "multi-persona",
+    "community_driven": true,
+    "llm_friendly": true
+  },
+  "metrics": {
+    "target_ideas_month_1": 25,
+    "target_stars_month_1": 200,
+    "target_contributors_month_1": 10,
+    "lifecycle_distribution_goal": {
+      "hypothesis": 0.30,
+      "experimentation": 0.20,
+      "concept": 0.25,
+      "poc": 0.15,
+      "validated": 0.10
+    }
+  }
+}
