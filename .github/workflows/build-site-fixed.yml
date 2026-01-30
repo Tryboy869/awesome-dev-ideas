@@ -1,0 +1,80 @@
+name: Build and Deploy Site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'ideas/**/*.json'
+      - 'docs/index.html'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
+      - name: Generate ideas.json for website
+        run: |
+          echo "📦 Aggregating all ideas into docs/ideas.json..."
+          mkdir -p docs
+          if ls ideas/*.json 1> /dev/null 2>&1; then
+            jq -s '.' ideas/*.json > docs/ideas.json
+          else
+            echo "[]" > docs/ideas.json
+          fi
+          
+          echo "✅ Generated docs/ideas.json with $(jq length docs/ideas.json) ideas"
+
+      - name: Update sitemap.xml
+        run: |
+          CURRENT_DATE=$(date +%Y-%m-%d)
+          cat > docs/sitemap.xml <<SITEMAP
+          <?xml version="1.0" encoding="UTF-8"?>
+          <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+            <url>
+              <loc>https://tryboy869.github.io/dev-ideas/</loc>
+              <lastmod>$CURRENT_DATE</lastmod>
+              <priority>1.0</priority>
+            </url>
+          </urlset>
+          SITEMAP
+          
+          echo "✅ Updated sitemap.xml"
+
+      - name: Create robots.txt
+        run: |
+          cat > docs/robots.txt <<ROBOTS
+          User-agent: *
+          Allow: /
+          Sitemap: https://tryboy869.github.io/dev-ideas/sitemap.xml
+          ROBOTS
+          
+          echo "✅ Created robots.txt"
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git add docs/
+          
+          if git diff --staged --quiet; then
+            echo "ℹ️  No changes to commit"
+          else
+            git commit -m "chore: rebuild site with latest ideas"
+            git push
+            echo "✅ Site rebuilt and deployed!"
+          fi
