@@ -198,7 +198,6 @@ If you use an idea from this registry in your work:
 
 **Questions? Suggestions?**
 - Open a [Discussion](https://github.com/Tryboy869/ideas/discussions)
-- Email: contact@proton.me
 
 ---
 
