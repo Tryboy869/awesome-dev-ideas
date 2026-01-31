@@ -89,19 +89,18 @@ git add . && git commit -m "feat: add my-idea-slug" && git push
 
 ## 🛠️ Idea Lifecycle
 
-| Phase | Description | Example |
-|-------|-------------|---------|
-| **Hypothesis** | Untested intuition | "What if SQLite used CRDTs?" |
+| Phase               | Description                     | Example                                        |
+| --------------------- | --------------------------------- | ------------------------------------------------ |
+| **Hypothesis**      | Untested intuition              | "What if SQLite used CRDTs?"                   |
 | **Experimentation** | Active testing, collecting data | "Built a basic prototype, seeing 20% overhead" |
-| **Concept** | Structured approach | "CRDT layer design documented" |
-| **PoC** | Working prototype | "Demo repo with benchmarks" |
-| **Validated** | Reproduced by others | "3+ independent implementations" |
+| **Concept**         | Structured approach             | "CRDT layer design documented"                 |
+| **PoC**             | Working prototype               | "Demo repo with benchmarks"                    |
+| **Validated**       | Reproduced by others            | "3+ independent implementations"               |
 
 ---
 
 ## 📝 How to Contribute
 
-**Read the full guide:** [CONTRIBUTING.md](CONTRIBUTING.md) | [CONTRIBUTING_FR.md](CONTRIBUTING_FR.md)
 
 **Quick start:**
 1. Fork this repo
@@ -146,12 +145,11 @@ git add . && git commit -m "feat: add my-idea-slug" && git push
 - **[Neural Kernel Scheduler](ideas/neural-kernel-scheduler.json)** <img src="docs/badges/validated.svg" height="20" alt="Validated"> — 3 independent implementations confirmed 20% latency improvement
 
 ### Active Experimentation  
-- **[Self-Healing WASM](ideas/self-healing-wasm.json)** <img src="docs/badges/experimentation.svg" height="20" alt="Experimentation"> — 2 teams testing automatic rollback mechanisms
+- **[Self-Healing WebAssembly](ideas/self-healing-wasm.json)** <img src="docs/badges/experimentation.svg" height="20" alt="Experimentation"> — 2 teams testing automatic rollback mechanisms
 
 ### New Hypotheses
 - **[Distributed SQLite CRDT](ideas/distributed-sqlite-crdt.json)** <img src="docs/badges/hypothesis.svg" height="20" alt="Hypothesis"> — Looking for experimenters to test overhead impact
 
-**[Browse all 50+ ideas →](https://tryboy869.github.io/dev-ideas/)**
 
 ---
 
@@ -186,7 +184,6 @@ If you use an idea from this registry in your work:
 
 **Questions? Suggestions?**
 - Open a [Discussion](https://github.com/Tryboy869/ideas/discussions)
-- Reach out to [@anzize](https://github.com/anzize)
 - Email: contact@proton.me
 
 ---
