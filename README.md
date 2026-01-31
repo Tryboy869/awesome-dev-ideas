@@ -89,6 +89,7 @@ git add . && git commit -m "feat: add my-idea-slug" && git push
 
 ## 🛠️ Idea Lifecycle
 
+<!--lint disable table-pipe-alignment-->
 | Phase               | Description                     | Example                                        |
 | --------------------- | --------------------------------- | ------------------------------------------------ |
 | **Hypothesis**      | Untested intuition              | "What if SQLite used CRDTs?"                   |
@@ -97,6 +98,7 @@ git add . && git commit -m "feat: add my-idea-slug" && git push
 | **PoC**             | Working prototype               | "Demo repo with benchmarks"                    |
 | **Validated**       | Reproduced by others            | "3+ independent implementations"               |
 
+<!--lint enable table-pipe-alignment-->
 ---
 
 ## 📝 How to Contribute
@@ -141,6 +143,8 @@ git add . && git commit -m "feat: add my-idea-slug" && git push
 
 ## 🔥 Featured Ideas
 
+<!--lint disable awesome-list-item double-link-->
+
 ### Recently Validated
 - **[Neural Kernel Scheduler](ideas/neural-kernel-scheduler.json)** <img src="docs/badges/validated.svg" height="20" alt="Validated"> — 3 independent implementations confirmed 20% latency improvement
 
@@ -153,7 +157,11 @@ git add . && git commit -m "feat: add my-idea-slug" && git push
 
 ---
 
+<!--lint enable awesome-list-item double-link-->
+
 ## 🤝 Governance
+
+<!--lint disable awesome-list-item double-link-->
 
 - **Founding Maintainer**: [Daouda A. Anzize](https://github.com/anzize)
 - **License**: CC BY-SA 4.0 (ideas), MIT (code/scripts)
@@ -164,12 +172,18 @@ git add . && git commit -m "feat: add my-idea-slug" && git push
 
 ---
 
+<!--lint enable awesome-list-item double-link-->
+
 ## 📜 License
+
+<!--lint disable awesome-list-item double-link-->
 
 - **Ideas, descriptions, documentation**: [CC BY-SA 4.0](LICENSE.md)
 - **Code snippets, scripts**: [MIT](LICENSE.md)
 
 ---
+
+<!--lint enable awesome-list-item double-link-->
 
 ## 🌟 Recognition
 
