@@ -12,9 +12,7 @@
   <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome"></a>
   <a href="LICENSE.md"><img src="https://img.shields.io/badge/License-CC%20BY--SA%204.0-blue.svg" alt="License"></a>
   <a href="https://github.com/Tryboy869/dev-ideas/discussions"><img src="https://img.shields.io/github/discussions/Tryboy869/dev-ideas" alt="GitHub Discussions"></a>
-  <a href="https://awesome.re"><img src="https://awesome.re/badge.svg" alt="Awesome"></a>
-</p>
-
+  
 <p align="center">
   <strong>Founded by <a href="https://github.com/anzize">Daouda Abdoul Anzize</a> — January 2026</strong>
 </p>
