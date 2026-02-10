@@ -2,114 +2,37 @@ name: Weekly Digest
 
 on:
   schedule:
-    - cron: '0 10 * * 1'  # Every Monday 10AM UTC
-  workflow_dispatch:  # Manual trigger
+    - cron: '0 12 * * 0'  # Runs every Sunday at 12:00 UTC
 
 jobs:
-  post-digest:
+  generate-digest:
     runs-on: ubuntu-latest
-    
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 30  # Last month of history
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-      - name: Generate weekly summary
-        id: summary
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate Weekly Digest
+        id: generate_digest
         run: |
-          # Count new ideas this week
-          NEW_IDEAS=$(git log --since="7 days ago" --grep="feat: add" --oneline -- ideas/*.json | wc -l)
-          
-          # Count total ideas
-          TOTAL_IDEAS=$(ls ideas/*.json 2>/dev/null | wc -l)
-          
-          # Get most recent ideas
-          RECENT=$(git log --since="7 days ago" --pretty=format:"%s" --grep="feat: add" -- ideas/*.json | head -5)
-          
-          # Build digest
-          echo "## 📊 Weekly Digest - $(date +%Y-%m-%d)" > digest.md
-          echo "" >> digest.md
-          echo "**This week's activity**:" >> digest.md
-          echo "- 💡 **$NEW_IDEAS** new ideas submitted" >> digest.md
-          echo "- 📈 **$TOTAL_IDEAS** total ideas in registry" >> digest.md
-          echo "" >> digest.md
-          
-          if [ "$NEW_IDEAS" -gt 0 ]; then
-            echo "**New ideas this week**:" >> digest.md
-            echo "$RECENT" | sed 's/feat: add /- /' >> digest.md
-            echo "" >> digest.md
-          fi
-          
-          echo "**[Explore the full catalog →](https://tryboy869.github.io/dev-ideas/)**" >> digest.md
-          echo "" >> digest.md
-          echo "---" >> digest.md
-          echo "💬 *Have an idea? [Submit it here](https://github.com/Tryboy869/dev-ideas/blob/main/CONTRIBUTING.md)*" >> digest.md
-          
-          # Save for next step
-          echo "new_ideas=$NEW_IDEAS" >> $GITHUB_OUTPUT
+          # Here you can add the logic to fetch and compile the weekly digest
+          # For example, you might query issues and discussions created in the past week
+          echo "Weekly digest content here" > digest.txt
+          cat digest.txt
 
-      - name: Post to Discussions (if activity exists)
-        if: steps.summary.outputs.new_ideas > 0
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        uses: actions/github-script@v7
+      - name: Post to GitHub Discussions
+        uses: peter-evans/discussions@v1
         with:
-          script: |
-            const fs = require('fs');
-            const digest = fs.readFileSync('digest.md', 'utf8');
-            
-            // Get or create "Announcements" category
-            const query = `
-              query($owner: String!, $repo: String!) {
-                repository(owner: $owner, name: $repo) {
-                  discussionCategories(first: 10) {
-                    nodes {
-                      id
-                      name
-                    }
-                  }
-                }
-              }
-            `;
-            
-            const result = await github.graphql(query, {
-              owner: context.repo.owner,
-              repo: context.repo.repo
-            });
-            
-            const categoryId = result.repository.discussionCategories.nodes
-              .find(cat => cat.name === 'Announcements')?.id;
-            
-            if (!categoryId) {
-              console.log('⚠️  Announcements category not found, skipping post');
-              return;
-            }
-            
-            // Get repository ID from context
-            const repoId = context.payload.repository.node_id;
-            
-            // Create discussion
-            const mutation = `
-              mutation($repositoryId: ID!, $categoryId: ID!, $title: String!, $body: String!) {
-                createDiscussion(input: {
-                  repositoryId: $repositoryId
-                  categoryId: $categoryId
-                  title: $title
-                  body: $body
-                }) {
-                  discussion {
-                    url
-                  }
-                }
-              }
-            `;
-            
-            const discussion = await github.graphql(mutation, {
-              repositoryId: repoId,
-              categoryId: categoryId,
-              title: `Weekly Digest - ${new Date().toISOString().split('T')[0]}`,
-              body: digest
-            });
-            
-            console.log(`✅ Posted digest: ${discussion.createDiscussion.discussion.url}`);
+          title: "Weekly Digest - $(date +'%Y-%m-%d')"
+          body: |
+            Here is your weekly digest:
+            ```
+            $(cat digest.txt)
+            ```
