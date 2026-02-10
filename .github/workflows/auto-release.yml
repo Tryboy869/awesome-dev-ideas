@@ -1,1 +1,39 @@
-name: Auto Release\n\non: \n  push: \n    branches: [ main ] \n\njobs: \n  release: \n    runs-on: ubuntu-latest \n    steps: \n      - name: Checkout Repository \n        uses: actions/checkout@v2 \n        with: \n          fetch-depth: 0 \n      - name: Set up Node.js \n        uses: actions/setup-node@v2 \n        with: \n          node-version: '14' \n      - name: Install Dependencies \n        run: npm install \n      - name: Count Ideas \n        id: count_ideas \n        run: | \n          ideas_count=$(git rev-list --count HEAD) \n          echo "ideas_count=$ideas_count" >> $GITHUB_ENV \n      - name: Create Release \n        if: ${{ env.ideas_count }} % 10 == 0 \n        run: | \n          echo "Creating release..." \n          release_notes=$(git log -n 10 --pretty=format:'* %s') \n          git tag -a "v1.0.$((${{ env.ideas_count }} / 10))" -m "Release for ideas $(( (${{ env.ideas_count }} / 10) * 10 - 9 )) to $(( ${{ env.ideas_count }} ))\n\nRelease Notes:\n$release_notes" \n          git push --tags \n        env: \n          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+name: Auto Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Count Ideas
+      id: count_ideas
+      run: |
+        echo "Counting ideas..."
+        count=$(ls ideas/ | wc -l)
+        echo "Idea count: $count"
+        echo "idea_count=$count" >> $GITHUB_ENV
+
+    - name: Create Release
+      id: create_release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag: v1.0.0
+        files: 
+          - path_to_your_release_file
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: steps.count_ideas.outputs.idea_count > 0
+
+        # Error handling
+    - name: Error Handling
+      run: |
+        if [[ ${{ steps.count_ideas.outputs.idea_count }} -eq 0 ]]; then
+          echo "No ideas found. Skipping release.";
+        fi
